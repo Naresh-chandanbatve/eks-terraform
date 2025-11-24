@@ -11,8 +11,8 @@ variable "cluster_version" { default = "1.30" }
 variable "instance_type" { default = "t3.medium" }
 
 variable "desired_size" { default = 1 }
-variable "min_size"     { default = 1 }
-variable "max_size"     { default = 2 }
+variable "min_size" { default = 1 }
+variable "max_size" { default = 2 }
 
 variable "cluster_endpoint_public_access" {
   type    = bool
