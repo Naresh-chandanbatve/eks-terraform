@@ -1,14 +1,14 @@
 module "vpc" {
   source = "../../modules/vpc"
 
-  name = var.cluster_name
-  cidr = "10.10.0.0/16"
+  name = var.vpc_name
+  cidr = var.vpc_cidr
 
-  azs             = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
-  public_subnets  = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
-  private_subnets = ["10.10.11.0/24","10.10.12.0/24","10.10.13.0/24"]
+  azs             = var.azs
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
 
-  tags = { Environment = "dev" }
+  tags = var.tags
 }
 
 module "eks" {
@@ -20,19 +20,12 @@ module "eks" {
   vpc_id  = module.vpc.vpc_id
   subnets = module.vpc.private_subnets
 
-  cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
+  cluster_endpoint_public_access       = true
+  cluster_endpoint_private_access      = true
+  cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
-  node_groups = {
-    dev-ng = {
-      instance_types = [var.instance_type]
-      desired_size   = var.desired_size
-      min_size       = var.min_size
-      max_size       = var.max_size
-    }
-  }
+  node_groups = var.node_groups
 
-  tags = { Environment = "dev" }
+  tags = var.tags
 }
 
