@@ -7,6 +7,7 @@ variable "node_groups" {
   type = map(any)
 }
 
+
 variable "tags" {
   type    = map(string)
   default = {}

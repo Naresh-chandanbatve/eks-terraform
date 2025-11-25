@@ -31,8 +31,7 @@ variable "cluster_endpoint_public_access_cidrs" {
 
 variable "tags" {}
 
-variable "node_groups" {}
-
+variable "node_groups" { type = map(any) }
 
 variable "vpc_cidr" {
   default = "10.10.0.0/16"
