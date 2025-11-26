@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-# helm install nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace
-
-
-# helm repo add jetstack https://charts.jetstack.io
-# helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
-
-# kubectl apply -f selfsigned.yaml
-
-
 NAMESPACE="default"
 RELEASE="app"
 CHART="./helm"
@@ -18,7 +8,7 @@ CHART="./helm"
 INGRESS_SVC="nginx-ingress-nginx-controller"
 INGRESS_NS="ingress-nginx"
 
-echo "Waiting for Ingress LoadBalancer IP..."
+echo "Waiting for Ingress LoadBalancer Hostname..."
 HOST=""
 
 while [ -z "$HOST" ]; do
@@ -37,4 +27,4 @@ helm upgrade --install $RELEASE $CHART \
   --set ingress.hosts[0].paths[0].pathType=Prefix \
   --set ingress.tls[0].secretName=app-tls
 
-echo "Application deployed with HTTPS enabled!"
+echo "Application deployed suscessfully!"

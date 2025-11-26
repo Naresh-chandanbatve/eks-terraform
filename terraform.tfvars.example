@@ -1,0 +1,47 @@
+aws_region = "eu-north-1"
+
+vpc_name = "dev-vpc"
+vpc_cidr = "10.0.0.0/16"
+
+azs = [
+  "eu-north-1a",
+  "eu-north-1b",
+  "eu-north-1c"
+]
+
+public_subnets = [
+  "10.0.1.0/24",
+  "10.0.2.0/24",
+  "10.0.3.0/24"
+]
+
+private_subnets = [
+  "10.0.101.0/24",
+  "10.0.102.0/24",
+  "10.0.103.0/24"
+]
+
+tags = {
+  Environment = "dev"
+  Project     = "eks"
+}
+
+
+
+
+cluster_name    = "dev-eks-cluster"
+cluster_version = "1.30"
+
+node_groups = {
+  default = {
+    desired_size                 = 1
+    max_size                     = 2
+    min_size                     = 1
+    instance_type                = "t3.medium"
+    iam_role_additional_policies = {}
+    labels = {
+      "node-role.kubernetes.io/worker" = "worker"
+      env  = "dev"
+    }
+  }
+}
