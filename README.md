@@ -1,4 +1,4 @@
-# Nginx app Deployment on EKS cluster using Terrfaorm, Ingress and Helm with Self‑Signed TLS
+# Nginx app Deployment on EKS cluster using Terrfaorm, Ingress and Helm with Self‑Signed TLS using Cert-Manager
 
 This project provides an end‑to‑end automated production ready workflow to provision an **AWS EKS cluster using Terraform** and deploy nginx Kubernetes application using **Helm**, **NGINX Ingress**, and **Cert‑Manager** with self‑signed TLS certificates.
 
@@ -6,13 +6,13 @@ This project sets up an **EKS cluster** using **Terraform** and deploys an NGINX
 
 It includes:
 
-* Full Terraform EKS infrastructure setup
-* Helm‑based deployment for nginx app
-* NGINX Ingress Controller installation
-* Cert‑Manager with a self‑signed ClusterIssuer
-* Dynamic ELB hostname injection into Ingress
-* Automatic HTTPS configuration using TLS secrets
-* supports any public or private registries
+- Full Terraform EKS infrastructure setup
+- Helm‑based deployment for nginx app
+- NGINX Ingress Controller installation
+- Cert‑Manager with a self‑signed ClusterIssuer
+- Dynamic ELB hostname injection into Ingress
+- Automatic HTTPS configuration using TLS secrets
+- supports any public or private registries
 
 ---
 
@@ -62,30 +62,36 @@ It includes:
 ## Deployment steps
 
 ### Requirements
-* [Terraform v1.8.5](https://developer.hashicorp.com/terraform/install)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/)
-* [Helm](https://helm.sh/docs/intro/install/)
-* AWS Access Key & Secret Key
-* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+- [Terraform v1.8.5](https://developer.hashicorp.com/terraform/install)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- AWS Access Key & Secret Key
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Install pre-commit hook (optional can be sckipped if not production)
+
 ```bash
 pip install pre-commit
 python -m pre_commit install
 ```
 
-### configure AWS cli 
+### configure AWS cli
+
 ```bash
 aws configure
 ```
+
 paste AWS access id and secret
 
 ### Edit terraform values based on your need
+
 ```
 cp envs/dev/terraform.tfvars.example envs/dev/terraform.tfvars
 ```
 
 ### stable terraform version in .terraform-version
+
 ```
 1.8.5
 ```
@@ -155,10 +161,14 @@ helm upgrade --install cert-manager jetstack/cert-manager \
 kubectl apply -f selfsigned.yaml
 ```
 
+if you are planning to use in production then selfsigned not recommended, you can use Let's Encrypt cluster issuer.
+
 ### Edit values.yaml
+
 - Edit values.yaml file based on your needs.
 - Here we have used simple nginx image you can modify it to your own image supports any public and private registries.
 - If using private registry create k8s secret using
+
 ```
 kubectl create secret docker-registry registry-secret \
   --docker-server=<REGISTRY_URL> \
@@ -168,13 +178,14 @@ kubectl create secret docker-registry registry-secret \
 ```
 
 ### Run deploy script
+
 ```bash
 ./deploy.sh
 ```
 
 ---
 
-## Accessing the application 
+## Accessing the application
 
 Open in browser:
 
