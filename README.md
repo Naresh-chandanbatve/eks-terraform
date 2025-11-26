@@ -1,6 +1,8 @@
-# Kubernetes EKS + Terraform + Helm Deployment with NGINX Ingress & Self‑Signed TLS
+# Nginx app Deployment on EKS cluster using Terrfaorm, Ingress and Helm with Self‑Signed TLS
 
-This project provides an end‑to‑end automated production ready workflow to provision an **AWS EKS cluster using Terraform** and deploy Kubernetes applications using **Helm**, **NGINX Ingress**, and **Cert‑Manager** with self‑signed TLS certificates.
+This project provides an end‑to‑end automated production ready workflow to provision an **AWS EKS cluster using Terraform** and deploy nginx Kubernetes application using **Helm**, **NGINX Ingress**, and **Cert‑Manager** with self‑signed TLS certificates.
+
+This project sets up an **EKS cluster** using **Terraform** and deploys an NGINX application using **Helm**, **Ingress**, and **Cert-Manager** with self-signed TLS. It provides a straightforward, ready to use workflow from cluster provisioning to application deployment.
 
 It includes:
 
@@ -10,21 +12,7 @@ It includes:
 * Cert‑Manager with a self‑signed ClusterIssuer
 * Dynamic ELB hostname injection into Ingress
 * Automatic HTTPS configuration using TLS secrets
-
----
-
-## Features
-
-### EKS cluster provisioning using Terraform
-
-* VPC, private/public subnets
-* Managed node groups
-* Helm‑based nginx Deployment
-* Configurable values.yaml
-* Full HTTPS with Cert‑Manager
-* Self‑signed ClusterIssuer
-* NGINX Ingress Controller
-* AWS LoadBalancer created automatically
+* supports any public or private registries
 
 ---
 
@@ -71,7 +59,7 @@ It includes:
 
 ---
 
-## Terraform Installation & Setup
+## Deployment steps
 
 ### Requirements
 * [Terraform v1.8.5](https://developer.hashicorp.com/terraform/install)
@@ -86,12 +74,23 @@ pip install pre-commit
 python -m pre_commit install
 ```
 
+### configure AWS cli 
+```bash
+aws configure
+```
+paste AWS access id and secret
+
+### Edit terraform values based on your need
+```
+cp envs/dev/terraform.tfvars.example envs/dev/terraform.tfvars
+```
+
 ### stable terraform version in .terraform-version
 ```
 1.8.5
 ```
 
-### 1. Initialize Terraform
+### Initialize Terraform
 
 ```bash
 git clone https://github.com/Naresh-chandanbatve/eks-terraform.git
@@ -99,19 +98,19 @@ cd eks-terraform
 terraform init
 ```
 
-### 2. Validate the configuration
+### Validate the configuration
 
 ```bash
 terraform validate
 ```
 
-### 3. Provision the EKS cluster
+### Provision the EKS cluster
 
 ```bash
 terraform apply -auto-approve
 ```
 
-### 4. Configure kubectl
+### Configure kubectl
 
 Terraform output will include:
 
@@ -132,8 +131,6 @@ kubectl get nodes
 ```
 
 ---
-
-## Helm Installation & Setup
 
 ### Install NGINX Ingress Controller
 
@@ -158,8 +155,19 @@ helm upgrade --install cert-manager jetstack/cert-manager \
 kubectl apply -f selfsigned.yaml
 ```
 
-### Run deploy script
+### Edit values.yaml
+- Edit values.yaml file based on your needs.
+- Here we have used simple nginx image you can modify it to your own image supports any public and private registries.
+- If using private registry create k8s secret using
+```
+kubectl create secret docker-registry registry-secret \
+  --docker-server=<REGISTRY_URL> \
+  --docker-username=<USERNAME> \
+  --docker-password=<PASSWORD> \
+  --docker-email=<EMAIL>
+```
 
+### Run deploy script
 ```bash
 ./deploy.sh
 ```
@@ -186,4 +194,4 @@ MIT License
 
 ## 🤝 Contributing
 
-Pull requests and enhancements are welcome!
+Pull requests and enhancements are always welcomed!
