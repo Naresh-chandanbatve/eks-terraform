@@ -2,13 +2,13 @@ variable "env" {
   default = "dev"
 }
 
-variable "aws_region" { default = "eu-north-1" }
+variable "aws_region" { default = "eu-west-1" }
 
 variable "cluster_name" { default = "dev-eks-cluster" }
 
 variable "cluster_version" { default = "1.30" }
 
-variable "instance_type" { default = "t3.medium" }
+variable "instance_type" { default = "t3.small" }
 
 variable "desired_size" { default = 1 }
 variable "min_size" { default = 1 }
@@ -34,7 +34,7 @@ variable "tags" {}
 variable "node_groups" { type = map(any) }
 
 variable "vpc_cidr" {
-  default = "10.10.0.0/16"
+  default = "10.0.0.0/16"
 }
 
 variable "vpc_name" {
@@ -42,13 +42,13 @@ variable "vpc_name" {
 }
 
 variable "azs" {
-  default = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
+  default = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
 }
 
 variable "public_subnets" {
-  default = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
+  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 variable "private_subnets" {
-  default = ["10.10.11.0/24", "10.10.12.0/24", "10.10.13.0/24"]
+  default = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }

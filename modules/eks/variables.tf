@@ -1,7 +1,7 @@
 variable "cluster_name" { type = string }
 variable "cluster_version" { type = string }
 variable "vpc_id" { type = string }
-variable "subnets" { type = list(string) }
+variable "private_subnets" {}
 
 variable "node_groups" {
   type = map(any)

@@ -1,6 +1,6 @@
-# Nginx app Deployment on EKS cluster using Terrfaorm, Ingress and Helm with Self‑Signed TLS using Cert-Manager
+# EKS cluster with Terraform + Nginx Ingress + TLS
 
-This project provides an end‑to‑end automated production ready workflow to provision an **AWS EKS cluster using Terraform** and deploy nginx Kubernetes application using **Helm**, **NGINX Ingress**, and **Cert‑Manager** with self‑signed TLS certificates.
+Provisioned an EKS cluster using Terraform and deployed an Nginx application with Ingress and TLS using Cert-Manager.
 
 This project sets up an **EKS cluster** using **Terraform** and deploys an NGINX application using **Helm**, **Ingress**, and **Cert-Manager** with self-signed TLS. It provides a straightforward, ready to use workflow from cluster provisioning to application deployment.
 
