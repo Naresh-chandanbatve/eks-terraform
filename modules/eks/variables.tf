@@ -15,7 +15,7 @@ variable "tags" {
 
 variable "cluster_endpoint_public_access" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "cluster_endpoint_private_access" {
@@ -24,6 +24,5 @@ variable "cluster_endpoint_private_access" {
 }
 
 variable "cluster_endpoint_public_access_cidrs" {
-  type    = list(string)
-  default = ["0.0.0.0/0"]
+  type = list(string)
 }

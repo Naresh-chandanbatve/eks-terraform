@@ -16,7 +16,7 @@ variable "max_size" { default = 2 }
 
 variable "cluster_endpoint_public_access" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "cluster_endpoint_private_access" {
@@ -26,7 +26,7 @@ variable "cluster_endpoint_private_access" {
 
 variable "cluster_endpoint_public_access_cidrs" {
   type    = list(string)
-  default = ["0.0.0.0/0"]
+  default = ["YOUR_IP/32"]
 }
 
 variable "tags" {}
