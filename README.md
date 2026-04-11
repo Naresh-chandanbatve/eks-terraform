@@ -1,21 +1,19 @@
 # EKS cluster with Terraform + Nginx Ingress + TLS
 
-Provisioned an EKS cluster using Terraform and deployed an Nginx application with Ingress and TLS using Cert-Manager.
+Provisioned an EKS cluster using Terraform and deployed a containerized NGINX application using Kubernetes, Helm, and Ingress with TLS.
 
 <img src="./assets/architecture.png" width="700"/>
 
-This project sets up an **EKS cluster** using **Terraform** and deploys an NGINX application using **Helm**, **Ingress**, and **Cert-Manager** with self-signed TLS. It provides a straightforward, ready to use workflow from cluster provisioning to application deployment.
-
 It includes:
 
-- Full Terraform EKS infrastructure setup
-- Helm‑based deployment for nginx app
-- NGINX Ingress Controller installation
-- Cert‑Manager with a self‑signed ClusterIssuer
-- Remote backend for terraform state
-- Dynamic ELB hostname injection into Ingress
-- Automatic HTTPS configuration using TLS secrets
-- Supports deployment from public and private container registries
+- EKS cluster provisioned using Terraform
+- NGINX app deployed using Helm
+- Ingress setup using NGINX Ingress Controller
+- TLS enabled using Cert-Manager (self-signed)
+- Remote backend support for Terraform state
+- Public Load Balancer for external access
+- HTTPS enabled via Kubernetes TLS secrets
+- Supports public and private container images
 
 ---
 
@@ -69,7 +67,7 @@ It includes:
 - [Terraform v1.8.5](https://developer.hashicorp.com/terraform/install)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm](https://helm.sh/docs/intro/install/)
-- AWS Access Key & Secret Key
+- [AWS Access Key & Secret Key] (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Clone the repo
