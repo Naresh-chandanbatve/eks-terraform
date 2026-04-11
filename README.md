@@ -2,6 +2,8 @@
 
 Provisioned an EKS cluster using Terraform and deployed an Nginx application with Ingress and TLS using Cert-Manager.
 
+<img src="./assets/architecture.png" width="700"/>
+
 This project sets up an **EKS cluster** using **Terraform** and deploys an NGINX application using **Helm**, **Ingress**, and **Cert-Manager** with self-signed TLS. It provides a straightforward, ready to use workflow from cluster provisioning to application deployment.
 
 It includes:
@@ -99,11 +101,15 @@ cp envs/dev/terraform.tfvars.example envs/dev/terraform.tfvars
 ```
 
 ### configure backend.tf for hcp, s3 or any backend and edit values
+
 #### Option 1: HCP
+
 ```
 cp backend.tf.example.hcp backend.tf
 ```
+
 #### Option 2: AWS S3 Backend
+
 ```
 cp backend.tf.example.s3 backend.tf
 ```
