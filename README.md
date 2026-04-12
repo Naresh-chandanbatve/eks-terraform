@@ -2,7 +2,7 @@
 
 Provisioned an EKS cluster using Terraform and deployed a containerized NGINX application using Kubernetes, Helm, and Ingress with TLS.
 
-<img src="./assets/architecture.png" width="700"/>
+<img src="./assets/architecture.jpg" width="700"/>
 
 It includes:
 
