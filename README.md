@@ -67,7 +67,7 @@ It includes:
 - [Terraform v1.8.5](https://developer.hashicorp.com/terraform/install)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm](https://helm.sh/docs/intro/install/)
-- [AWS Access Key & Secret Key] (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+- [AWS Access Key & Secret Key](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Clone the repo
