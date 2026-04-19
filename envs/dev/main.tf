@@ -41,9 +41,9 @@ module "eks_blueprints_addons" {
 
   enable_ingress_nginx         = true
   enable_cert_manager          = true
-  enable_kube_prometheus_stack = true
   enable_metrics_server        = true
   enable_karpenter             = true
+  enable_kube_prometheus_stack = true
   tags                         = var.tags
   depends_on                   = [module.eks]
 }
