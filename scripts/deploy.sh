@@ -5,7 +5,7 @@ RELEASE="app"
 CHART="./helm"
 
 # Name of your ingress controller service
-INGRESS_SVC="nginx-ingress-nginx-controller"
+INGRESS_SVC="ingress-nginx-controller"
 INGRESS_NS="ingress-nginx"
 
 echo "Waiting for Ingress LoadBalancer Hostname..."
