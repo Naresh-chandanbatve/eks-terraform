@@ -183,7 +183,7 @@ Note: edit nodepool values based on your need
 
 ---
 
-### Edit values.yaml
+### Configure values.yaml of helm chart
 
 - Edit values.yaml file based on your needs.
 - Here we have used simple nginx image you can modify it to your own image supports any public and private registries.
