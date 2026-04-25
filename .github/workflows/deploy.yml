@@ -58,7 +58,7 @@ jobs:
           DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
           docker build -t $DOCKER_REPO:backendv2 -f app/Dockerfile .
-          docker push $DOCKER_REPO:backend
+          docker push $DOCKER_REPO:backendv2
 
 
       - name: Build and Push Frontend Docker Image
