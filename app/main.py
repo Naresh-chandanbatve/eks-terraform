@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from .db import get_connection
-from .cache import r
+from db import get_connection
+from cache import r
 import time
 import random
 
