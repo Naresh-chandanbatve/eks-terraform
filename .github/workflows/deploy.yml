@@ -66,8 +66,8 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
-          docker build -t $DOCKER_REPO:frontend ./frontend
-          docker push $DOCKER_REPO:frontend
+          docker build -t $DOCKER_REPO:frontendv2 ./frontend
+          docker push $DOCKER_REPO:frontendv2
 
       # - name: Update kubeconfig
       #   if: env.cluster_exists == 'true'
