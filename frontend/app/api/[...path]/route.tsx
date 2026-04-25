@@ -10,7 +10,7 @@ export async function GET(
 
     const finalPath = path?.join("/") || "";
 
-    const url = `http://backend:8000/${finalPath}`;
+    const url = `http://backend/${finalPath}`;
 
     const res = await fetch(url, {
       cache: "no-store",
