@@ -3,9 +3,10 @@ name: CI/CD to deploy on EKS
 on:
   push:
     branches:
-      - main
+      - incidents
     paths:
       - "app/**"
+      - "frontend/**"
       - "helm/**"
   workflow_dispatch:
 
@@ -35,7 +36,8 @@ jobs:
           if aws eks describe-cluster --name $CLUSTER_NAME --region $AWS_REGION > /dev/null 2>&1; then
             echo "cluster_exists=true" >> $GITHUB_ENV
           else
-            echo "cluster_exists=false" >> $GITHUB_ENV
+            # echo "cluster_exists=false" >> $GITHUB_ENV
+            echo "cluster_exists=true" >> $GITHUB_ENV
             echo "Cluster not found. Skipping deployment."
             exit 0
           fi
@@ -55,34 +57,43 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
-          docker build -t $DOCKER_REPO:${{ env.IMAGE_TAG }} -f app/Dockerfile .
-          docker push $DOCKER_REPO:${{ env.IMAGE_TAG }}
+          docker build -t $DOCKER_REPO:backend -f app/Dockerfile .
+          docker push $DOCKER_REPO:backend
 
-      - name: Update kubeconfig
-        if: env.cluster_exists == 'true'
-        run: |
-          aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
 
-      - name: Install Helm
+      - name: Build and Push Frontend Docker Image
         if: env.cluster_exists == 'true'
+        env:
+          DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
-            curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          docker build -t $DOCKER_REPO:frontend -f frontend/Dockerfile .
+          docker push $DOCKER_REPO:frontend
+
+      # - name: Update kubeconfig
+      #   if: env.cluster_exists == 'true'
+      #   run: |
+      #     aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
+
+      # - name: Install Helm
+      #   if: env.cluster_exists == 'true'
+      #   run: |
+      #       curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
             
-      - name: Deploy with Helm
-        if: env.cluster_exists == 'true'
-        run: |
-          CURRENT_HOST=$(kubectl get ingress app-helm -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
+      # - name: Deploy with Helm
+      #   if: env.cluster_exists == 'true'
+      #   run: |
+      #     CURRENT_HOST=$(kubectl get ingress app-helm -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
 
-          helm upgrade --install app ./helm \
-            --set ingress.enabled=true \
-            --set image.repository=$DOCKER_REPO \
-            --set image.tag=${{ env.IMAGE_TAG }} \
-            --set ingress.hosts[0].host="$CURRENT_HOST" \
-            --set ingress.tls[0].hosts[0]="$CURRENT_HOST" \
-            --set ingress.hosts[0].paths[0].path="/" \
-            --set ingress.hosts[0].paths[0].pathType=Prefix \
-            --set ingress.tls[0].secretName=app-tls
+      #     helm upgrade --install app ./helm \
+      #       --set ingress.enabled=true \
+      #       --set image.repository=$DOCKER_REPO \
+      #       --set image.tag=${{ env.IMAGE_TAG }} \
+      #       --set ingress.hosts[0].host="$CURRENT_HOST" \
+      #       --set ingress.tls[0].hosts[0]="$CURRENT_HOST" \
+      #       --set ingress.hosts[0].paths[0].path="/" \
+      #       --set ingress.hosts[0].paths[0].pathType=Prefix \
+      #       --set ingress.tls[0].secretName=app-tls
             
-      - name: Skip if cluster not available
-        if: env.cluster_exists == 'false'
-        run: echo "EKS cluster not found. Skipping deployment."
+      # - name: Skip if cluster not available
+      #   if: env.cluster_exists == 'false'
+      #   run: echo "EKS cluster not found. Skipping deployment."
