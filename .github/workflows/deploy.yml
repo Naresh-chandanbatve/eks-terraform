@@ -57,7 +57,7 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
-          docker build -t $DOCKER_REPO:backend -f app/Dockerfile .
+          docker build -t $DOCKER_REPO:backendv2 -f app/Dockerfile .
           docker push $DOCKER_REPO:backend
 
 
