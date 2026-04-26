@@ -82,7 +82,7 @@ jobs:
       - name: Deploy with Helm
         if: env.cluster_exists == 'true'
         run: |
-          CURRENT_HOST=$(kubectl get ingress app-helm -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
+          CURRENT_HOST=$(kubectl get ingress app-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
 
           helm upgrade --install app ./helm \
             --set ingress.enabled=true \
