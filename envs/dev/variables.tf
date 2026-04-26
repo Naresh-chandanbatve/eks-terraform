@@ -52,3 +52,24 @@ variable "public_subnets" {
 variable "private_subnets" {
   default = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }
+
+
+variable "enable_ingress_nginx" {
+
+}
+
+variable "enable_cert_manager" {
+
+}
+
+variable "enable_metrics_server" {
+
+}
+
+variable "enable_karpenter" {
+
+}
+
+variable "enable_kube_prometheus_stack" {
+
+}
