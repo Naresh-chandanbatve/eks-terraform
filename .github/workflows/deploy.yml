@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - "app/**"
-      - "frontend/**"
       - "helm/**"
   workflow_dispatch:
 
@@ -56,17 +55,8 @@ jobs:
         env:
           DOCKER_REPO: ${{secrets.DOCKER_REPO}}
         run: |
-          docker build -t $DOCKER_REPO:backend-${{ env.IMAGE_TAG }} -f app/Dockerfile .
-          docker push $DOCKER_REPO:backend-${{ env.IMAGE_TAG }}
-
-
-      - name: Build and Push Frontend Docker Image
-        if: env.cluster_exists == 'true'
-        env:
-          DOCKER_REPO: ${{secrets.DOCKER_REPO}}
-        run: |
-          docker build -t $DOCKER_REPO:frontend-${{ env.IMAGE_TAG }} ./frontend
-          docker push $DOCKER_REPO:frontend-${{ env.IMAGE_TAG }}
+          docker build -t $DOCKER_REPO:${{ env.IMAGE_TAG }} -f app/Dockerfile .
+          docker push $DOCKER_REPO:${{ env.IMAGE_TAG }}
 
       - name: Update kubeconfig
         if: env.cluster_exists == 'true'
@@ -81,14 +71,12 @@ jobs:
       - name: Deploy with Helm
         if: env.cluster_exists == 'true'
         run: |
-          CURRENT_HOST=$(kubectl get ingress app-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
+          CURRENT_HOST=$(kubectl get ingress app-helm -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "")
 
           helm upgrade --install app ./helm \
             --set ingress.enabled=true \
-            --set backend.image.repository=$DOCKER_REPO \
-            --set backend.image.tag=backend-${{ env.IMAGE_TAG }} \
-            --set frontend.image.repository=$DOCKER_REPO \
-            --set frontend.image.tag=frontend-${{ env.IMAGE_TAG }} \
+            --set image.repository=$DOCKER_REPO \
+            --set image.tag=${{ env.IMAGE_TAG }} \
             --set ingress.hosts[0].host="$CURRENT_HOST" \
             --set ingress.tls[0].hosts[0]="$CURRENT_HOST" \
             --set ingress.hosts[0].paths[0].path="/" \
