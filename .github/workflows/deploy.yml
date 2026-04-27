@@ -3,7 +3,7 @@ name: CI/CD to deploy on EKS
 on:
   push:
     branches:
-      - incidents
+      - main
     paths:
       - "app/**"
       - "frontend/**"
@@ -36,8 +36,7 @@ jobs:
           if aws eks describe-cluster --name $CLUSTER_NAME --region $AWS_REGION > /dev/null 2>&1; then
             echo "cluster_exists=true" >> $GITHUB_ENV
           else
-            # echo "cluster_exists=false" >> $GITHUB_ENV
-            echo "cluster_exists=true" >> $GITHUB_ENV
+            echo "cluster_exists=false" >> $GITHUB_ENV
             echo "Cluster not found. Skipping deployment."
             exit 0
           fi
