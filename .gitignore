@@ -39,6 +39,3 @@ terraform.rc
 
 #backend
 *backend.tf
-
-__pycache__/
-venv/
