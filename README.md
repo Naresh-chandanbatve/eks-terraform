@@ -9,6 +9,10 @@
 
 ---
 
+<img src="./assets/architecture.jpg" width="700"/>
+
+---
+
 ## Key Highlights
 
 | Area                  | What Was Built                                                                        |
@@ -22,11 +26,7 @@
 
 ---
 
-<img src="./assets/architecture.jpg" width="700"/>
-
----
-
-## Architecture Decisions
+## Key Design Decisions
 
 - **Karpenter**
   - karpenter is fast, dynamic and cost optimized but has complexity and Requires additional configuration
@@ -46,7 +46,7 @@
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 > **Prerequisites:**
 
@@ -77,7 +77,7 @@ Full setup guide → [docs/installation.md](docs/installation.md)
 
 ---
 
-## 🚀 CI/CD Pipeline
+## CI/CD Pipeline
 
 ```
   Push to main
@@ -104,7 +104,7 @@ Pipeline details → [docs/cicd.md](docs/cicd.md)
 
 ---
 
-## 🏭 Production Considerations
+## Production Considerations
 
 These are known gaps intentionally deferred for dev environment simplicity:
 
