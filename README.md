@@ -63,6 +63,8 @@ cd eks-platform
 
 # 2. Provision infrastructure
 cd envs/dev
+mv backenc.tf.example.hcp backenc.tf   # update with your hcp account values
+mv terraform.tfvars.example terraform.tfvars
 terraform init
 terraform apply -auto-approve
 
@@ -70,7 +72,7 @@ terraform apply -auto-approve
 aws eks update-kubeconfig --name eks-dev-cluster --region us-east-1
 
 # 4. Deploy application stack
-helm upgrade --install app ./helm/app -f helm/app/values.dev.yaml
+helm upgrade --install app ./helm -f helm/values.yaml
 ```
 
 Full setup guide → [docs/installation.md](docs/installation.md)
