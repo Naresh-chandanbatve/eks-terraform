@@ -73,3 +73,32 @@ variable "enable_karpenter" {
 variable "enable_kube_prometheus_stack" {
 
 }
+
+
+variable "github_oidc_role_name" {
+  type    = string
+  default = "github-actions-eks"
+}
+
+
+variable "github_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "github_username" {
+  type = string
+}
+
+variable "github_owner" {
+  type = string
+}
+
+variable "github_repo" {
+  type = string
+}
+
+variable "github_branch" {
+  type    = string
+  default = "main"
+}
