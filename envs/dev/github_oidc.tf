@@ -74,7 +74,22 @@ resource "aws_iam_role_policy" "github_actions" {
         Effect = "Allow"
 
         Action = [
-          "eks:DescribeCluster"
+
+          "eks:DescribeCluster",
+
+          "ecr:GetAuthorizationToken",
+
+          "ecr:BatchCheckLayerAvailability",
+
+          "ecr:CompleteLayerUpload",
+
+          "ecr:UploadLayerPart",
+
+          "ecr:InitiateLayerUpload",
+
+          "ecr:PutImage",
+
+          "ecr:BatchGetImage"
         ]
 
         Resource = "*"
@@ -95,9 +110,35 @@ resource "github_actions_secret" "aws_role_arn" {
   plaintext_value = aws_iam_role.github_actions.arn
 }
 
+resource "github_actions_secret" "backend_repository" {
+
+  repository = var.github_repo
+
+  secret_name = "ECR_BACKEND_REPOSITORY"
+
+  plaintext_value = aws_ecr_repository.backend.repository_url
+}
+
+resource "github_actions_secret" "frontend_repository" {
+
+  repository = var.github_repo
+
+  secret_name = "ECR_FRONTEND_REPOSITORY"
+
+  plaintext_value = aws_ecr_repository.frontend.repository_url
+}
 
 output "github_role_arn" {
+
   value = aws_iam_role.github_actions.arn
 }
 
+output "backend_repository" {
 
+  value = aws_ecr_repository.backend.repository_url
+}
+
+output "frontend_repository" {
+
+  value = aws_ecr_repository.frontend.repository_url
+}

@@ -102,3 +102,11 @@ variable "github_branch" {
   type    = string
   default = "main"
 }
+
+
+variable "ecr_repository_name" {
+
+  type = string
+
+  default = "terraform-eks"
+}

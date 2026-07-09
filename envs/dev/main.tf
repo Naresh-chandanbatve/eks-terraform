@@ -47,3 +47,25 @@ module "eks_blueprints_addons" {
   tags                         = var.tags
   depends_on                   = [module.eks]
 }
+
+resource "aws_ecr_repository" "backend" {
+
+  name = "${var.ecr_repository_name}-backend"
+
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
+resource "aws_ecr_repository" "frontend" {
+
+  name = "${var.ecr_repository_name}-frontend"
+
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
